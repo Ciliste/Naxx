@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.naxx.game.common.Constants;
+import com.naxx.game.inter.IController;
 
 public class GameScreen extends ScreenAdapter {
  
@@ -17,7 +18,7 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(IController controller) {
 
-        this.camera = camera;
+        this.camera = new Camera(controller);
 
         this.batch = new SpriteBatch();
     }
@@ -29,6 +30,8 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         this.batch.begin();
+
+        this.camera.draw(this.batch);
 
         this.batch.end();
     }

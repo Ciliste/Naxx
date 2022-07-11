@@ -28,6 +28,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.naxx.game.common.Constants;
 import com.naxx.game.impl.GameData;
 import com.naxx.game.impl.InputHandler;
+import com.naxx.game.inter.IConnectionDoor;
+import com.naxx.game.inter.IController;
+import com.naxx.game.inter.IGameData;
+import com.naxx.game.inter.IInputHandler;
 
 public class Naxx extends Game {
 	

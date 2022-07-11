@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.naxx.game.IConnectionDoor;
-import com.naxx.game.IController;
-import com.naxx.game.IGameData;
-import com.naxx.game.IPlayer;
+import com.naxx.game.inter.IConnectionDoor;
+import com.naxx.game.inter.IController;
+import com.naxx.game.inter.IGameData;
+import com.naxx.game.inter.IPlayer;
 
-public final class GameData implements IGameData {
+public final class GameData implements IGameData, Runnable {
     
     private IConnectionDoor door;
     private List<IController> lstController;
@@ -47,16 +47,23 @@ public final class GameData implements IGameData {
 
     @Override
     public void addController(IController controller) {
-
-        IPlayer player = new Player();
         
         try {
+            Player player = new Player();
+            this.players.add(player);
             controller.setCameraTarget(player);
+            controller.getElements().add(player);
         } 
         catch (Exception e) {
-            //TODO: handle exception
+            e.printStackTrace();
         }
         
         this.lstController.add(controller);
+    }
+
+    @Override
+    public void run() {
+        
+        
     }
 }
