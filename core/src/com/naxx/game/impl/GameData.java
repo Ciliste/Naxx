@@ -39,7 +39,7 @@ public final class GameData implements IGameData {
     @Override
     public void addController(IController controller) {
 
-        controller.set
+        controller.setCameraTarget();
         
         this.lstController.add(controller);
     }
