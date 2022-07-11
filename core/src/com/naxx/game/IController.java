@@ -1,12 +1,18 @@
 package com.naxx.game;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+import com.badlogic.gdx.physics.box2d.World;
 
 public interface IController extends Remote {
     
-    public abstract void setDX(float dX);
-    public abstract void setDY(float dY);
+    public abstract void setDX(float dX) throws RemoteException;
+    public abstract void setDY(float dY) throws RemoteException;
 
-    public abstract float getDX();
-    public abstract float getDY();
+    public abstract float getDX() throws RemoteException;
+    public abstract float getDY() throws RemoteException;
+
+    public abstract void setCameraTarget(ICameraTarget target) throws RemoteException;
+    public abstract ICameraTarget getCameraTarget() throws RemoteException;
 }

@@ -36,9 +36,9 @@ public class Naxx extends Game {
 	private IGameData data;
 
 	private int screenWidth, screenHeight;
-	private OrthographicCamera camera;
 
 	private IInputHandler inputHandler;
+	private IController controller;
 
 	public Naxx() {
 
@@ -66,19 +66,17 @@ public class Naxx extends Game {
 		this.screenWidth  = Gdx.graphics.getWidth();
 		this.screenHeight = Gdx.graphics.getHeight();
 
-		this.camera = new OrthographicCamera();
-		this.camera.setToOrtho(false, this.screenWidth, this.screenHeight);
-		setScreen(new GameScreen(this.camera));
-
 		try {
 			
-			IController controller = ((IConnectionDoor) Naming.lookup("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + Constants.PORT + "/Naxx")).join();
+			this.controller = ((IConnectionDoor) Naming.lookup("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + Constants.PORT + "/Naxx")).join();
 			this.inputHandler = new InputHandler(controller);
 			new Thread(this.inputHandler).start();
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		super.setScreen(new GameScreen(this.controller));
 	}
 
 	@Override

@@ -45,8 +45,13 @@ public class InputHandler implements IInputHandler {
 
             if (dX != 0f && dY != 0f) dX /= 2; dY /= 2;
 
-            this.controller.setDX(dX);
-            this.controller.setDY(dY);
+            try {
+                this.controller.setDX(dX);
+                this.controller.setDY(dY);   
+            } 
+            catch (Exception e) {
+                //TODO: handle exception
+            }
         }
     }
 

@@ -4,16 +4,18 @@ import com.naxx.game.IPlayer;
 
 public class Player implements IPlayer {
 
+    private int x;
+    private int y;
+
     @Override
-    public int getX() {
-        // TODO Auto-generated method stub
-        return 0;
+    public int getCameraX() {
+        
+        return this.x;
     }
 
     @Override
-    public int getY() {
-        // TODO Auto-generated method stub
-        return 0;
+    public int getCameraY() {
+
+        return this.y;
     }
-    
 }
