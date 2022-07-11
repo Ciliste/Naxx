@@ -10,7 +10,7 @@ import com.naxx.game.inter.IController;
 import com.naxx.game.inter.IGameData;
 import com.naxx.game.inter.IPlayer;
 
-public final class GameData implements IGameData, Runnable {
+public final class GameData implements IGameData {
     
     private IConnectionDoor door;
     private List<IController> lstController;
@@ -18,9 +18,6 @@ public final class GameData implements IGameData, Runnable {
     private World world;
 
     private List<IPlayer> players;
-
-    private List<Object> map;
-    private List<Object> terrain;
 
     public GameData() {
 

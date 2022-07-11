@@ -61,6 +61,7 @@ public class Naxx extends Game {
 			String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + Constants.PORT + "/Naxx";
 			System.out.println("Enregistrement de l'objet avec l'url : " + url);
 			Naming.rebind(url, this.data.getDoor());
+			new Thread(this.data).start();
 		} 
 		catch (Exception e) {
 

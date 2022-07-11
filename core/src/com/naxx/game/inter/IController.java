@@ -1,10 +1,8 @@
-package com.naxx.game;
+package com.naxx.game.inter;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
-
-import com.badlogic.gdx.physics.box2d.World;
 
 public interface IController extends Remote {
     

@@ -3,8 +3,8 @@ package com.naxx.game.impl;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import com.naxx.game.IConnectionDoor;
-import com.naxx.game.IController;
+import com.naxx.game.inter.IConnectionDoor;
+import com.naxx.game.inter.IController;
 
 public class ConnectionDoor extends UnicastRemoteObject implements IConnectionDoor {
 

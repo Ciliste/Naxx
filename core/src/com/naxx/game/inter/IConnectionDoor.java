@@ -1,4 +1,4 @@
-package com.naxx.game;
+package com.naxx.game.inter;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
