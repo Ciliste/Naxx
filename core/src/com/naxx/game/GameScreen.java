@@ -9,17 +9,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.naxx.game.common.Constants;
-import com.naxx.game.inter.IController;
 
 public class GameScreen extends ScreenAdapter {
  
     private Camera camera;
     private SpriteBatch batch;
 
-    public GameScreen(IController controller) {
+    public GameScreen() {
 
-        this.camera = new Camera(controller);
-
+        this.camera = new Camera();
         this.batch = new SpriteBatch();
     }
 

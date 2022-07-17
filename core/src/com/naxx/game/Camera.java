@@ -5,44 +5,25 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.naxx.game.inter.IController;
-import com.naxx.game.inter.IElement;
+import com.naxx.game.client.NaxxClient;
+import com.naxx.game.common.TextureLoader;
+import com.naxx.game.communication.EntityData;
 
 public final class Camera {
  
-    private int x;
-    private int y;
+    private static final float MID_SCREEN_X = Gdx.graphics.getWidth()  / (float) 2;
+    private static final float MID_SCREEN_Y = Gdx.graphics.getHeight() / (float) 2;
 
-    private List<IElement> elements;
-    private static Texture playerPH = new Texture(Gdx.files.internal("placeholder.png"));
+    public Camera() {
 
-    public Camera(IController controller) {
-
-        try {
-            this.elements = controller.getElements();
-            System.out.println(elements);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        new Thread(new Runnable() {
-           
-            public void run() {
-
-
-            }
-        }).start(); 
+        
     }
 
     public void draw(SpriteBatch batch) {
 
-        for (IElement ele : this.elements) {
+        for (EntityData data : NaxxClient.INSTANCE.getEntitys().values()) {
 
-            try {
-                batch.draw(Camera.playerPH, ele.getX(), ele.getY());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            batch.draw(TextureLoader.get("placeholder.png"), data.getX(), data.getY());
         }
     }
 }

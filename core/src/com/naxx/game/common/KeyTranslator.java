@@ -7,7 +7,8 @@ public enum KeyTranslator {
     KEY_UP(Keys.W),
     KEY_DOWN(Keys.S),
     KEY_LEFT(Keys.A),
-    KEY_RIGHT(Keys.D);
+    KEY_RIGHT(Keys.D),
+    DASH(Keys.SPACE);
 
     private int code;
 

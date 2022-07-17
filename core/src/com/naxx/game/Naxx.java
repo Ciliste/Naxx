@@ -25,24 +25,20 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Server;
+import com.naxx.game.client.ClientListener;
+import com.naxx.game.client.NaxxClient;
 import com.naxx.game.common.Constants;
-import com.naxx.game.impl.GameData;
-import com.naxx.game.impl.InputHandler;
-import com.naxx.game.inter.IConnectionDoor;
-import com.naxx.game.inter.IController;
-import com.naxx.game.inter.IGameData;
-import com.naxx.game.inter.IInputHandler;
+import com.naxx.game.impl.entity.DebugEntity;
+import com.naxx.game.server.KryoClassEnum;
+import com.naxx.game.server.NaxxServer;
+import com.naxx.game.server.ServerListener;
 
 public class Naxx extends Game {
 	
 	public static Naxx INSTANCE;
-
-	private IGameData data;
-
-	private int screenWidth, screenHeight;
-
-	private IInputHandler inputHandler;
-	private IController controller;
 
 	public Naxx() {
 
@@ -50,48 +46,37 @@ public class Naxx extends Game {
 	}
 
 	@Override
-	public void create () {
+	public void create() {
 
-		this.data = new GameData();
+		System.out.println("shesh");
+		NaxxServer server = new NaxxServer();
+		KryoClassEnum.setupKryo(server.getKryo());
 
+		server.start();
 		try {
-		
-			LocateRegistry.createRegistry(Constants.PORT);
-
-			String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + Constants.PORT + "/Naxx";
-			System.out.println("Enregistrement de l'objet avec l'url : " + url);
-			Naming.rebind(url, this.data.getDoor());
-			new Thread(this.data).start();
-		} 
-		catch (Exception e) {
-
+			server.bind(6969, 6996);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		ServerListener temp = new ServerListener(server);
+		server.addListener(temp);
+		server.setServerListener(temp);
 
-		this.screenWidth  = Gdx.graphics.getWidth();
-		this.screenHeight = Gdx.graphics.getHeight();
+		System.out.println("shesh");
+		NaxxClient client = new NaxxClient();
+		KryoClassEnum.setupKryo(client.getKryo());
 
+		client.start();
 		try {
-			
-			this.controller = ((IConnectionDoor) Naming.lookup("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + Constants.PORT + "/Naxx")).join();
-			this.inputHandler = new InputHandler(controller);
-			new Thread(this.inputHandler).start();
-		} 
-		catch (Exception e) {
+			client.connect(5000, "localhost", 6969, 6996);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		client.addListener(new ClientListener(client));
 
-		super.setScreen(new GameScreen(this.controller));
-	}
+		System.out.println("shesh");
+		setScreen(new GameScreen());
 
-	@Override
-	public void render () {
-		super.render();
-	}
-
-	@Override
-	public void dispose() {
-
-		super.dispose();
+		new DebugEntity();
 	}
 }
